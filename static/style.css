@@ -347,7 +347,6 @@ ul { margin: 0; padding: 0; }
   color: #8a5f3e;
 }
 
-/* ---------- Add Button Styling ---------- */
 .add-btn {
   border: 1px solid #b09076;
   background: #b48767;
@@ -356,14 +355,39 @@ ul { margin: 0; padding: 0; }
   border-radius: 10px;
   font-weight: 600;
   line-height: 1;
-  cursor: not-allowed;
+  cursor: pointer;
   opacity: 0.95;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
-  transition: opacity 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;   /* animate background too */
 }
+
+/* Hover: pop out */
 .add-btn:hover {
   opacity: 1;
+  transform: scale(1.05) translateY(-2px);   /* grows + lifts */
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);   /* deeper shadow */
+  background: #a76a4f;                       /* slightly darker shade */
 }
+
+/* Active (clicked): pressed in */
+.add-btn:active {
+  transform: scale(0.97) translateY(1px);    /* shrinks + sinks */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12) inset; /* inner shadow for pressed look */
+  background: #8f5a3d;                       /* even darker shade */
+}
+
+/* Disabled state */
+.add-btn[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+}
+
 
 /* ---------- Responsive Layout ---------- */
 @media (max-width: 720px) {
