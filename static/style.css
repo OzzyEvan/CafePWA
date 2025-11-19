@@ -388,6 +388,38 @@ ul { margin: 0; padding: 0; }
   box-shadow: none;
 }
 
+/* Prevent hover/active effects on disabled buttons */
+.add-btn[disabled]:hover,
+.add-btn[disabled]:active {
+  transform: none;
+  box-shadow: none;
+  background: #b48767; /* same as default disabled */
+}
+
+/* Logo base */
+.logo {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+/* Hover: lift and grow */
+.logo:hover {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+/* Active: trigger bounce animation */
+.logo:active {
+  animation: logo-bounce 0.4s ease;
+}
+
+/* Keyframes for bounce */
+@keyframes logo-bounce {
+  0%   { transform: scale(0.95) translateY(2px); }
+  40%  { transform: scale(1.1) translateY(-4px); }
+  70%  { transform: scale(0.98) translateY(1px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
 
 /* ---------- Responsive Layout ---------- */
 @media (max-width: 720px) {
