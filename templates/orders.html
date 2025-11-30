@@ -9,6 +9,7 @@
     <meta name="author" content="Evan Sergi (Albury High School)">
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
   <!-- ---------- Header and Navigation ---------- -->
   <header class="site-header">
@@ -34,47 +35,81 @@
     </nav>
     </header>
 
-  <!-- ---------- Menu Banner ---------- -->
+  <!-- ---------- Checkout Banner ---------- -->
   <section class="menu-banner">
-  <img src="/static/images/menu-banner.jpg" alt="E.S. Café Co Menu artwork">
+  <img src="/static/images/menu-banner.jpg" alt="E.S. Café Co Order artwork">
 
   <div class="banner-text container">
-    <h1>Our Menu</h1>
-    <p class="lead">Freshly made and ready when you are.</p>
+    <h1>Your Order</h1>
+    <p class="lead">Review your items before placing your order.</p>
   </div>
   </section>
+  <!-- ---------- Checkout Section ---------- -->
+    <section class="menu-section">
+        <div class="container">
+            <div class="menu-card">
 
-<!-- ---------- Menu Sections (Breakfast, Lunch, Drinks) ---------- -->
-<section class="menu-section" id="breakfast">
-  <div class="container">
+            <!-- Heading + form fields -->
+            <h3 class="order-details-heading">Enter your details:</h3>
 
-    <!-- Breakfast Section -->
-    <div class="menu-card">
-      <h2>Breakfast</h2>
-      <div id="menu-breakfast" class="menu-items"></div>
-    </div>
+            <form id="order-form" class="order-form">
 
-    <!-- Lunch Section -->
-    <div class="menu-card">
-      <h2>Lunch</h2>
-      <div id="menu-lunch" class="menu-items"></div>
-    </div>
+                <label>
+                    Name:
+                    <input type="text" id="customer-name" required>
+                </label>
 
-    <!-- Drinks Section -->
-    <div class="menu-card">
-      <h2>Drinks</h2>
-      <div id="menu-drinks" class="menu-items"></div>
-    </div>
+                <label>
+                    Email:
+                    <input type="email" id="customer-email" required>
+                </label>
 
-  </div> <!-- end of .container -->
-</section>
+                <label>
+                    Pick-up time:
+                    <input type="time" id="pickup-time" required>
+                </label>
+
+            </form>
+
+            <!-- Order summary table -->
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="order-rows">
+                <!-- JavaScript will insert rows here -->
+                </tbody>
+            </table>
+
+            <p class="order-total">
+                <strong>Total:</strong>
+                $<span id="order-total">0.00</span>
+            </p>
+
+            <!-- Button centred under Total -->
+            <div class="order-button-row">
+                <button type="submit" form="order-form" class="add-btn order-button">
+                    Place order
+                </button>
+            </div>
+
+            <p id="order-message" class="note"></p>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout script -->
+    <script src="../static/orders.js"></script>
+
   <!-- ---------- Footer Section ---------- -->
   <footer class="site-footer">
   <div class="container">
     © 2025 AppleProductions Co • <a href="#">Privacy</a>
   </div>
   </footer>
-
-<script src="/static/menu.js"></script>
-</body>
-</html>
