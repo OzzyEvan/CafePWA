@@ -1,5 +1,5 @@
 // ---------- Checkout Page Logic ----------
-const CART_KEY = "cafeFiniganCart";
+const CART_KEY = "ESCafeCoCart";
 
 function loadCart() {
   const stored = localStorage.getItem(CART_KEY);
@@ -45,3 +45,4 @@ if (!cart || cart.length === 0) {
 
   totalSpan.textContent = total.toFixed(2);
 }
+
