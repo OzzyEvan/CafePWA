@@ -19,7 +19,6 @@ def get_db_connection():
 def home():
     return "✅ Flask server is running!"
 
-
 # POST route to receive data from the front-end
 @app.route('/feedback', methods=['POST'])
 def feedback():
@@ -103,8 +102,6 @@ def create_order():
     return jsonify({
         "message": f"✅ Order received! Your order number is {order_id}."
     })
-
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5050)

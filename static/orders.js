@@ -24,7 +24,7 @@ const cart = loadCart();
 
 if (!cart || cart.length === 0) {
   rowsBody.innerHTML = "<tr><td colspan='4'>Your cart is empty.</td></tr>";
-  if (form) form.style.display = "none";
+  form.style.display = "none";   // hide form if nothing to order
   totalSpan.textContent = "0.00";
 } else {
   let total = 0;
@@ -46,59 +46,35 @@ if (!cart || cart.length === 0) {
   totalSpan.textContent = total.toFixed(2);
 }
 
-// Handle form submission
-if (form) {
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();  // CRITICAL: Prevents page refresh
-    
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    const time = timeInput.value;
-    
-    if (!name || !email || !time) {
-      messageP.textContent = "⚠️ Please fill in all fields.";
-      messageP.style.color = "red";
-      return;
-    }
+// When the form is submitted, send the order to Flask
+form.addEventListener("submit", event => {
+  event.preventDefault();  // stop page reload
 
-    // Disable button to prevent double-submission
-    const submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Processing...";
+  const orderData = {
+    customerName: nameInput.value.trim(),
+    customerEmail: emailInput.value.trim(),
+    pickupTime: timeInput.value,
+    items: cart
+  };
 
-    // Send order to Flask
-    fetch("http://127.0.0.1:5050/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        customerName: name,
-        customerEmail: email,
-        pickupTime: time,
-        items: cart
-      })
-    })
+  fetch("http://127.0.0.1:5050/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(orderData)
+  })
     .then(res => res.json())
     .then(data => {
-      console.log("Order response:", data);
-      
-      // Store details for thanks page
-      localStorage.setItem("lastOrderName", name);
-      localStorage.setItem("lastOrderTime", time);
-      
-      // Clear cart
+      // Store name + time so the Thank-You page can read them
+      localStorage.setItem("lastOrderName", nameInput.value.trim());
+      localStorage.setItem("lastOrderTime", timeInput.value);
+
+      // Clear the cart
       clearCart();
-      
-      // Redirect to thanks page
-      window.location.href = "thanks.html";
+
+      // Redirect to Thank-You page
+      window.location.href = "/templates/thanks.html";
     })
-    .catch(err => {
-      console.error("Order submission error:", err);
-      messageP.textContent = "❌ Could not place order. Please try again.";
-      messageP.style.color = "red";
-      
-      // Re-enable button
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Place order";
+    .catch(() => {
+      messageP.textContent = "Could not place order. Is Flask running?";
     });
-  });
-}
+});
