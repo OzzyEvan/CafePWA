@@ -1,0 +1,20 @@
+{
+  "name": "E.S Café Co – Pre-order Lunch Online",
+  "short_name": "E.S Café",
+  "start_url": "/templates/index.html",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#0e7c7b",
+  "icons": [
+    {
+      "src": "/static/images/icons/logo-192.png",
+      "sizes": "300x300",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icons/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

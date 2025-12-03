@@ -8,6 +8,7 @@
     <meta name="keywords" content="E.S. Café Co contact, email, phonenumber">
     <meta name="author" content="Evan Sergi (Albury High School)">
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="manifest" href="../manifest.json">
     <link rel="icon" href="/static/images/logo.png" type="image/png">
 </head>
 <body>
@@ -36,12 +37,24 @@
     </header>
 
 
-    <h1>Hi this page currently does not exist but we're trying out best to fix that.<br>Come back later</h1>
+  <h1>Hi this page currently does not exist but we're trying out best to fix that.<br>Come back later</h1>
   <!-- ---------- Footer Section ---------- -->
   <footer class="site-footer">
   <div class="container">
     © 2025 AppleProductions Co • <a href="#">Privacy</a>
   </div>
   </footer>
+  <script>
+  // Register the service worker so the PWA can work offline
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("../service-worker.js")
+      .then(registration => {
+        console.log("Service worker registered with scope:", registration.scope);
+      })
+      .catch(error => {
+        console.error("Service worker registration failed:", error);
+      });
+  }
+  </script>
 </body>
 </html>
