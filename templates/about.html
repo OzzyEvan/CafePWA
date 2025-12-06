@@ -49,16 +49,107 @@
   </footer>
   <script>
   // Register the service worker so the PWA can work offline
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("../service-worker.js")
-      .then(registration => {
-        console.log("Service worker registered with scope:", registration.scope);
-      })
-      .catch(error => {
-        console.error("Service worker registration failed:", error);
+    if ("serviceWorker" in navigator) {
+      let refreshing = false;
+
+      // Detect when a new service worker has taken control
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        console.log('[App] New service worker activated, reloading page...');
+        window.location.reload();
       });
-  }
+
+      navigator.serviceWorker.register("../service-worker.js")
+        .then(registration => {
+          console.log("✅ Service worker registered:", registration.scope);
+
+          // Check for updates every time the page loads
+          registration.update();
+
+          // Check for updates periodically (every 60 seconds)
+          setInterval(() => {
+            registration.update();
+          }, 60000);
+
+          // Listen for updates
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            console.log('[App] New service worker found, installing...');
+
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New service worker available
+                console.log('[App] New version available!');
+                
+                // Show update notification to user
+                showUpdateNotification(newWorker);
+              }
+            });
+          });
+        })
+        .catch(error => {
+          console.error("❌ Service worker registration failed:", error);
+        });
+    }
+
+    // Show a notification when a new version is available
+    function showUpdateNotification(newWorker) {
+      // Create a notification banner
+      const banner = document.createElement('div');
+      banner.id = 'update-banner';
+      banner.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #0e7c7b;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        z-index: 10000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        font-family: system-ui, sans-serif;
+      `;
+      
+      banner.innerHTML = `
+        <strong>🎉 New version available!</strong>
+        <button id="update-btn" style="
+          margin-left: 15px;
+          padding: 8px 20px;
+          background: white;
+          color: #0e7c7b;
+          border: none;
+          border-radius: 5px;
+          font-weight: bold;
+          cursor: pointer;
+        ">Update Now</button>
+        <button id="dismiss-btn" style="
+          margin-left: 10px;
+          padding: 8px 20px;
+          background: transparent;
+          color: white;
+          border: 1px solid white;
+          border-radius: 5px;
+          cursor: pointer;
+        ">Later</button>
+      `;
+      
+      document.body.appendChild(banner);
+      
+      // Handle update button click
+      document.getElementById('update-btn').addEventListener('click', () => {
+        // Tell the new service worker to skip waiting
+        newWorker.postMessage({ type: 'SKIP_WAITING' });
+      });
+      
+      // Handle dismiss button click
+      document.getElementById('dismiss-btn').addEventListener('click', () => {
+        banner.remove();
+      });
+    }
   </script>
+
 
   <script>
     function updateCartBadge() {

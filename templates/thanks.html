@@ -35,6 +35,7 @@
         <li><a href="orders.html" style="position: relative;">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
           <span class="cart-badge">0</span>
+        </a></li>
       </ul>
     </nav>
     </header>
@@ -51,7 +52,7 @@
     </div>
     </section>
 
-  <script src="../static/thanks.js"></script>>
+  <script src="../static/thanks.js"></script>
 
   <!-- ---------- Footer Section ---------- -->
   <footer class="site-footer">
@@ -59,18 +60,139 @@
     © 2025 AppleProductions Co • <a href="#">Privacy</a>
   </div>
   </footer>
+
   <script>
   // Register the service worker so the PWA can work offline
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("../service-worker.js")
-      .then(registration => {
-        console.log("Service worker registered with scope:", registration.scope);
-      })
-      .catch(error => {
-        console.error("Service worker registration failed:", error);
+    if ("serviceWorker" in navigator) {
+      let refreshing = false;
+
+      // Detect when a new service worker has taken control
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        console.log('[App] New service worker activated, reloading page...');
+        window.location.reload();
       });
-  }
+
+      navigator.serviceWorker.register("../service-worker.js")
+        .then(registration => {
+          console.log("✅ Service worker registered:", registration.scope);
+
+          // Check for updates every time the page loads
+          registration.update();
+
+          // Check for updates periodically (every 60 seconds)
+          setInterval(() => {
+            registration.update();
+          }, 60000);
+
+          // Listen for updates
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            console.log('[App] New service worker found, installing...');
+
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New service worker available
+                console.log('[App] New version available!');
+                
+                // Show update notification to user
+                showUpdateNotification(newWorker);
+              }
+            });
+          });
+        })
+        .catch(error => {
+          console.error("❌ Service worker registration failed:", error);
+        });
+    }
+
+    // Show a notification when a new version is available
+    function showUpdateNotification(newWorker) {
+      // Create a notification banner
+      const banner = document.createElement('div');
+      banner.id = 'update-banner';
+      banner.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #0e7c7b;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        z-index: 10000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        font-family: system-ui, sans-serif;
+        user-select: none;
+      `;
+      
+      banner.innerHTML = `
+        <strong style="user-select: none; cursor: default;">🎉 New version available!</strong>
+        <button id="update-btn" class="add-btn" style="
+          margin-left: 15px;
+          padding: 0.5rem 1.2rem;
+          background: #b48767;
+          color: white;
+          border: 1px solid #b09076;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+          transition: all 0.2s ease;
+        ">Update Now</button>
+        <button id="dismiss-btn" style="
+          margin-left: 10px;
+          padding: 0.5rem 1.2rem;
+          background: transparent;
+          color: white;
+          border: 1px solid white;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        ">Later</button>
+      `;
+      
+      document.body.appendChild(banner);
+      
+      // Add hover effects for Update button
+      const updateBtn = document.getElementById('update-btn');
+      updateBtn.addEventListener('mouseenter', () => {
+        updateBtn.style.background = '#a76a4f';
+        updateBtn.style.transform = 'scale(1.05) translateY(-2px)';
+        updateBtn.style.boxShadow = '0 6px 14px rgba(0,0,0,0.15)';
+      });
+      updateBtn.addEventListener('mouseleave', () => {
+        updateBtn.style.background = '#b48767';
+        updateBtn.style.transform = 'none';
+        updateBtn.style.boxShadow = '0 2px 0 rgba(0, 0, 0, 0.08)';
+      });
+      
+      // Add hover effects for Dismiss button
+      const dismissBtn = document.getElementById('dismiss-btn');
+      dismissBtn.addEventListener('mouseenter', () => {
+        dismissBtn.style.background = 'rgba(255,255,255,0.1)';
+        dismissBtn.style.transform = 'scale(1.05)';
+      });
+      dismissBtn.addEventListener('mouseleave', () => {
+        dismissBtn.style.background = 'transparent';
+        dismissBtn.style.transform = 'none';
+      });
+      
+      // Handle update button click
+      updateBtn.addEventListener('click', () => {
+        // Tell the new service worker to skip waiting
+        newWorker.postMessage({ type: 'SKIP_WAITING' });
+      });
+      
+      // Handle dismiss button click
+      dismissBtn.addEventListener('click', () => {
+        banner.remove();
+      });
+    }
   </script>
+
 
   <script>
     function updateCartBadge() {
@@ -93,3 +215,4 @@
    window.addEventListener('storage', updateCartBadge);
   </script>
 </body>
+</html>

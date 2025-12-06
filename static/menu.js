@@ -140,22 +140,30 @@ fetch("http://127.0.0.1:5050/menu")
       });
 
       // Add to cart with specified quantity
-      addButton.addEventListener("click", () => {
-        const qty = parseInt(qtyInput.value) || 1;
-        addToCart({
+    addButton.addEventListener("click", () => {
+      const qty = parseInt(qtyInput.value) || 1;
+
+      addToCart(
+        {
           MenuItemID: item.MenuItemID,
           ItemName: item.ItemName,
           Price: item.Price
-        }, qty);
+        }, 
+        qty
+      );
 
-        console.log(`Added to cart: ${item.ItemName} x${qty}`);
-        
-        // Visual feedback
-        addButton.textContent = "Added!";
-        setTimeout(() => {
-          addButton.textContent = "Add";
-        }, 1000);
-      });
+      console.log(`Added to cart: ${item.ItemName} x${qty}`);
+
+      // Reset quantity selector back to 1
+      qtyInput.value = 1;
+
+      // Visual feedback
+      addButton.textContent = "Added!";
+      setTimeout(() => {
+        addButton.textContent = "Add";
+      }, 1000);
+    });
+
 
       if (target) {
         target.appendChild(card);

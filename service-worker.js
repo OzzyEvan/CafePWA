@@ -1,5 +1,8 @@
-// A name for this version of the cache
-const CACHE_NAME = "es-cafe-v1";
+// 🔥 CHANGE THIS VERSION NUMBER EVERY TIME YOU UPDATE YOUR CODE
+// Example: "v1.0.0", "v1.0.1", "v1.1.0", "v2.0.0"
+const VERSION = "v1.2.2";  // ⬅️ INCREMENT THIS WHEN YOU MAKE CHANGES!
+
+const CACHE_NAME = `es-cafe-${VERSION}`;
 
 const STATIC_ASSETS = [
   "/templates/index.html",
@@ -22,24 +25,37 @@ const STATIC_ASSETS = [
 
 // Install event: pre-cache all static assets
 self.addEventListener("install", event => {
+  console.log(`[Service Worker] Installing ${CACHE_NAME}`);
+  
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
+      console.log(`[Service Worker] Caching ${STATIC_ASSETS.length} files`);
       return cache.addAll(STATIC_ASSETS);
+    }).then(() => {
+      // Force the waiting service worker to become the active service worker
+      return self.skipWaiting();
     })
   );
 });
 
-// Activate event: remove old caches that don't match the current version
+// Activate event: DELETE old caches with different versions
 self.addEventListener("activate", event => {
+  console.log(`[Service Worker] Activating ${CACHE_NAME}`);
+  
   event.waitUntil(
-    caches.keys().then(keys => {
+    caches.keys().then(cacheNames => {
       return Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
+        cacheNames.map(cacheName => {
+          // Delete any cache that doesn't match the current version
+          if (cacheName !== CACHE_NAME) {
+            console.log(`[Service Worker] Deleting old cache: ${cacheName}`);
+            return caches.delete(cacheName);
           }
         })
       );
+    }).then(() => {
+      // Take control of all pages immediately
+      return self.clients.claim();
     })
   );
 });
@@ -56,8 +72,26 @@ self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
       // If we have a cached response, return it; otherwise go to the network
-      return cachedResponse || fetch(event.request);
+      return cachedResponse || fetch(event.request).then(response => {
+        // Cache new responses for future use
+        if (response && response.status === 200) {
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        }
+        return response;
+      });
+    }).catch(() => {
+      // Offline fallback - you could return a custom offline page here
+      console.log('[Service Worker] Fetch failed; returning offline page');
     })
   );
 });
 
+// Listen for messages from the client to manually skip waiting
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
