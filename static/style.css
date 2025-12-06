@@ -88,12 +88,31 @@ ul { margin: 0; padding: 0; }
   text-decoration:none;
   font-weight:600;
   transition:background .18s ease,color .18s ease;
+  position: relative;
 }
 
 .nav-list a:hover {
   background:#ecdccf;   /* light coffee */
   color:var(--ink);
   text-decoration:none; /* remove underline on hover */
+}
+
+/* Cart badge styling */
+.cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  pointer-events: none;
 }
 
 /* ---------- Hero Section ---------- */
@@ -347,13 +366,73 @@ ul { margin: 0; padding: 0; }
 /* ---------- Price and Add Button ---------- */
 .menu-actions {
   display: flex;
-  justify-content: space-between;       /* price left, button right */
+  justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
+  flex-wrap: wrap;
 }
 .price {
   font-weight: 700;
   color: #8a5f3e;
+}
+
+/* Quantity controls on menu page */
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f5f3f0;
+  border-radius: 8px;
+  padding: 0.25rem;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #c9b8a6;
+  background: white;
+  color: #8a5f3e;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.qty-btn:hover {
+  background: #8a5f3e;
+  color: white;
+  border-color: #8a5f3e;
+}
+
+.qty-btn:active {
+  transform: scale(0.95);
+}
+
+.qty-input {
+  width: 45px;
+  height: 28px;
+  text-align: center;
+  border: 1px solid #d4cbc1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  -moz-appearance: textfield;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.qty-input:focus {
+  outline: 2px solid #b48767;
+  outline-offset: 1px;
 }
 
 .add-btn {
@@ -371,22 +450,22 @@ ul { margin: 0; padding: 0; }
     opacity 0.2s ease,
     transform 0.2s ease,
     box-shadow 0.2s ease,
-    background 0.2s ease;   /* animate background too */
+    background 0.2s ease;
 }
 
 /* Hover: pop out */
 .add-btn:hover {
   opacity: 1;
-  transform: scale(1.05) translateY(-2px);   /* grows + lifts */
-  box-shadow: 0 6px 14px rgba(0,0,0,0.15);   /* deeper shadow */
-  background: #a76a4f;                       /* slightly darker shade */
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  background: #a76a4f;
 }
 
 /* Active (clicked): pressed in */
 .add-btn:active {
-  transform: scale(0.97) translateY(1px);    /* shrinks + sinks */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12) inset; /* inner shadow for pressed look */
-  background: #8f5a3d;                       /* even darker shade */
+  transform: scale(0.97) translateY(1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12) inset;
+  background: #8f5a3d;
 }
 
 /* Disabled state */
@@ -402,7 +481,7 @@ ul { margin: 0; padding: 0; }
 .add-btn[disabled]:active {
   transform: none;
   box-shadow: none;
-  background: #b48767; /* same as default disabled */
+  background: #b48767;
 }
 
 /* Logo base */
@@ -443,17 +522,17 @@ ul { margin: 0; padding: 0; }
   }
   .menu-actions {
     margin-top: 6px;
+    justify-content: space-between;
   }
 }
 
 /* ---------- Image Zoom on Hover ---------- */
-/* Adds a smooth zoom effect when the user hovers over a menu image */
 .menu-thumb img {
-  transition: transform 0.25s ease;   /* controls speed and smoothness */
+  transition: transform 0.25s ease;
 }
 
 .menu-thumb:hover img {
-  transform: scale(1.06);             /* enlarges image slightly on hover */
+  transform: scale(1.06);
 }
 
 /*-------------- Order Table --------------*/
@@ -473,7 +552,7 @@ ul { margin: 0; padding: 0; }
 .order-table th:nth-child(2),
 .order-table th:nth-child(3),
 .order-table th:nth-child(4) {
-  text-align: right;
+  text-align: center;
 }
 
 .order-table td {
@@ -481,10 +560,85 @@ ul { margin: 0; padding: 0; }
   font-size: 1.05rem;
 }
 
-.order-table td:nth-child(2),
+.order-table td:nth-child(2) {
+  text-align: center;
+}
+
 .order-table td:nth-child(3),
 .order-table td:nth-child(4) {
   text-align: right;
+}
+
+.order-table td:nth-child(5) {
+  text-align: center;
+}
+
+/* Cart quantity controls */
+.cart-qty-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.qty-btn-small {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #b09076;
+  background: white;
+  color: #8a5f3e;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.qty-btn-small:hover {
+  background: #8a5f3e;
+  color: white;
+}
+
+.qty-input-small {
+  width: 40px;
+  height: 24px;
+  text-align: center;
+  border: 1px solid #d4cbc1;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  -moz-appearance: textfield;
+}
+
+.qty-input-small::-webkit-outer-spin-button,
+.qty-input-small::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove button */
+.remove-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #c0392b;
+  transform: scale(1.05);
+}
+
+.remove-btn:active {
+  transform: scale(0.95);
 }
 
 .order-total {
