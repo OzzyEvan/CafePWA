@@ -46,7 +46,7 @@ def get_customers():
 def get_menu():
     conn = get_db_connection()   # open database using the helper
     rows = conn.execute(
-        'SELECT MenuItemID, ItemName, Category, Price FROM MenuItems'
+        'SELECT MenuItemID, ItemName, Category, Price, ImageFile FROM MenuItems'
     ).fetchall()
     conn.close()
 

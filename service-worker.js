@@ -1,6 +1,6 @@
 // 🔥 CHANGE THIS VERSION NUMBER EVERY TIME YOU UPDATE YOUR CODE
 // Example: "v1.0.0", "v1.0.1", "v1.1.0", "v2.0.0"
-const VERSION = "v1.2.2";  // ⬅️ INCREMENT THIS WHEN YOU MAKE CHANGES!
+const VERSION = "v1.2.7";  // ⬅️ INCREMENT THIS WHEN YOU MAKE CHANGES!
 
 const CACHE_NAME = `es-cafe-${VERSION}`;
 

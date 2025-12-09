@@ -9,7 +9,9 @@ CREATE TABLE IF NOT EXISTS MenuItems (
     MenuItemID INTEGER PRIMARY KEY AUTOINCREMENT,
     ItemName   TEXT NOT NULL,
     Category   TEXT NOT NULL,   -- e.g. 'Breakfast', 'Drink', 'Snack', 'Lunch'
-    Price      REAL NOT NULL
+    Price      REAL NOT NULL,
+    ImageFile  TEXT,             -- e.g. 'eggs.jpg', 'iced-latte.jpg'
+    ItemDescription TEXT
 );
 
 -- One order per purchase (linked to a customer)
