@@ -1,4 +1,4 @@
-const VERSION = "v1.3";  // ⬅️ INCREMENT THIS WHEN YOU MAKE CHANGES!
+const VERSION = "v1.4.1";  // ⬅️ INCREMENT THIS WHEN YOU MAKE CHANGES!
 
 const CACHE_NAME = `es-cafe-${VERSION}`;
 
