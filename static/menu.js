@@ -58,6 +58,8 @@ function updateCartBadge() {
 const breakfastContainer = document.getElementById("menu-breakfast");
 const lunchContainer     = document.getElementById("menu-lunch");
 const drinksContainer    = document.getElementById("menu-drinks");
+const specialContainerContainer    = document.getElementById("menu-special");
+
 
 // Safety check: are the containers found?
 console.log("Containers:", {
@@ -83,7 +85,9 @@ fetch("http://127.0.0.1:5050/menu")
         target = lunchContainer;
       } else if (item.Category === "Drinks" || item.Category === "Drink") {
         target = drinksContainer;
-      } else {
+      } else if (item.Category === "Specials") {
+        target = specialContainer;
+       } else {
         target = breakfastContainer; // fallback
       }
 
