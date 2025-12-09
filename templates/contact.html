@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E.S. Café Co - Contact</title>
-    <meta name="description" content="Contact us about any conserns.">
-    <meta name="keywords" content="E.S. Café Co contact, email, phonenumber">
+    <meta name="description" content="Contact us about any concerns or questions.">
+    <meta name="keywords" content="E.S. Café Co contact, email, phone number">
     <meta name="author" content="Evan Sergi (Albury High School)">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="manifest" href="../manifest.json">
@@ -39,8 +39,86 @@
     </nav>
     </header>
 
+  <!-- ---------- Contact Banner ---------- -->
+  <section class="menu-banner">
+    <img src="/static/images/Contact-us_topbanner_cropped.jpg" alt="E.S. Café Co Contact">
 
-    <h1>Hi this page currently does not exist but we're trying out best to fix that.<br>Come back later</h1>
+    <div class="banner-text container">
+      <h1>Get in Touch</h1>
+      <p class="lead">We'd love to hear from you!</p>
+    </div>
+  </section>
+
+  <!-- ---------- Main Content ---------- -->
+  <main class="contact-page container">
+
+    <section class="contact-intro">
+      <p>
+        Have a question, feedback, or just want to say hello? 
+        We'd love to hear from you! Fill out the form below or reach out directly.
+      </p>
+    </section>
+
+    <div class="contact-layout">
+      <!-- Contact Form -->
+      <section class="contact-form-section">
+        <h2>Send us a Message</h2>
+        
+        <form id="contact-form" class="contact-form">
+          <div class="form-group">
+            <label for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" name="name" required placeholder="John Doe">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-email">Your Email</label>
+            <input type="email" id="contact-email" name="email" required placeholder="john@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <input type="text" id="contact-subject" name="subject" required placeholder="General Inquiry">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" rows="5" required placeholder="Tell us what's on your mind..."></textarea>
+          </div>
+
+          <button type="submit" class="add-btn">Send Message</button>
+        </form>
+
+        <p id="contact-response" class="note"></p>
+      </section>
+
+      <!-- Contact Information -->
+      <section class="contact-info-section">
+        <h2>Contact Information</h2>
+        
+        <div class="contact-detail">
+          <h3>📍 Location</h3>
+          <p>824 Golflinks Terrace<br>Albury NSW 2640</p>
+          <p><a href="https://maps.app.goo.gl/MpvQjLKQTUUq8Hkc8" target="_blank" rel="noopener">View on Maps →</a></p>
+        </div>
+
+        <div class="contact-detail">
+          <h3>📞 Phone</h3>
+          <p><a href="tel:+61234567890">(02) 6021 3366</a></p>
+        </div>
+
+        <div class="contact-detail">
+          <h3>📧 Email</h3>
+          <p><a href="mailto:hello@escafeco.com.au">hello@escafeco.com.au</a></p>
+        </div>
+
+        <div class="contact-detail">
+          <h3>🕐 Hours</h3>
+          <p>Mon–Fri: 7:00–15:00<br>Sat-Sun: 8:00–16:00</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
   <!-- ---------- Footer Section ---------- -->
   <footer class="site-footer">
   <div class="container">
@@ -48,6 +126,39 @@
   </div>
   </footer>
   
+  <!-- ---------- Script: Send form data to Flask ---------- -->
+  <script>
+    const form = document.getElementById('contact-form');
+    const output = document.getElementById('contact-response');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const subject = document.getElementById('contact-subject').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+
+      const fullMessage = `From: ${name} (${email})\nSubject: ${subject}\n\n${message}`;
+
+      fetch("http://127.0.0.1:5050/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: fullMessage })
+      })
+        .then(res => res.json())
+        .then(data => {
+          output.textContent = "✅ Thank you for contacting us! We'll get back to you soon.";
+          output.style.color = "green";
+          form.reset();
+        })
+        .catch(() => {
+          output.textContent = "❌ Could not send message. Please try again later.";
+          output.style.color = "red";
+        });
+    });
+  </script>
+
   <script>
   // Register the service worker so the PWA can work offline
     if ("serviceWorker" in navigator) {
