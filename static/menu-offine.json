@@ -1,0 +1,132 @@
+{
+  "menu": [
+    {
+      "Category": "Drink",
+      "ImageFile": "Flatewhite.jpg",
+      "ItemDescription": "Smooth, velvety espresso topped with silky milk \u2014 the Aussie classic done right.",
+      "ItemName": "Flat White",
+      "MenuItemID": 1,
+      "Price": 4.5
+    },
+    {
+      "Category": "Drink",
+      "ImageFile": "Latte(1).jpg",
+      "ItemDescription": "A gentle balance of espresso and creamy milk, perfect for slow sips and caf\u00e9 chats.\n\n",
+      "ItemName": "Latte",
+      "MenuItemID": 2,
+      "Price": 4.8
+    },
+    {
+      "Category": "Drink",
+      "ImageFile": "icedlate.jpg",
+      "ItemDescription": "Cool, refreshing espresso poured over ice with milk \u2014 summer in a glass.\n\n",
+      "ItemName": "Iced Latte",
+      "MenuItemID": 3,
+      "Price": 5.2
+    },
+    {
+      "Category": "Drink",
+      "ImageFile": "mocha.jpg",
+      "ItemDescription": "Espresso meets chocolate in a rich, indulgent hug of flavor.\n\n",
+      "ItemName": "Mocha",
+      "MenuItemID": 4,
+      "Price": 5.5
+    },
+    {
+      "Category": "Drink",
+      "ImageFile": "San_Chai_Latte-min.jpg",
+      "ItemDescription": "Spiced, aromatic chai blended with steamed milk \u2014 cozy comfort in a cup.",
+      "ItemName": "Chai Latte",
+      "MenuItemID": 5,
+      "Price": 4.7
+    },
+    {
+      "Category": "Breakfast",
+      "ImageFile": "Ham-and-Cheese-Croissant-featured.jpg",
+      "ItemDescription": "Buttery, flaky French pastry \u2014 golden layers that melt in your mouth.\n\n",
+      "ItemName": "Croissant",
+      "MenuItemID": 6,
+      "Price": 3.8
+    },
+    {
+      "Category": "Breakfast",
+      "ImageFile": "bananabread.jpg",
+      "ItemDescription": "Moist, homestyle loaf with a hint of sweetness \u2014 best served toasted.\n\n",
+      "ItemName": "Banana Bread",
+      "MenuItemID": 7,
+      "Price": 4.2
+    },
+    {
+      "Category": "Breakfast",
+      "ImageFile": "Easy-Blueberry-Muffin-Recipe-1-1200.jpg",
+      "ItemDescription": "Bursting with blueberries, soft and fluffy \u2014 a pocket-sized treat.\n\n",
+      "ItemName": "Blueberry Muffin",
+      "MenuItemID": 8,
+      "Price": 4.0
+    },
+    {
+      "Category": "Lunch",
+      "ImageFile": "hamandcheesetoastite.jpeg",
+      "ItemDescription": "Fluffy stack drizzled with syrup \u2014 weekend vibes on a plate.\n\n",
+      "ItemName": "Toastie - Ham & Cheese",
+      "MenuItemID": 9,
+      "Price": 7.5
+    },
+    {
+      "Category": "Lunch",
+      "ImageFile": "eggs.jpg",
+      "ItemDescription": "Eggs, toast, bacon, and more \u2014 the full feast to fuel your day.\n\n",
+      "ItemName": "Poached Eggs on Toast",
+      "MenuItemID": 10,
+      "Price": 12.5
+    },
+    {
+      "Category": "Breakfast",
+      "ImageFile": "panckatestack.jpg",
+      "ItemDescription": "Creamy avo, perfectly cooked egg, and rustic toast \u2014 brunch goals achieved.\n\n",
+      "ItemName": "Buttermilk Pancakes",
+      "MenuItemID": 11,
+      "Price": 9.5
+    },
+    {
+      "Category": "Breakfast",
+      "ImageFile": "bigbreakfast.jpg",
+      "ItemDescription": "Hearty beans piled high on golden toast \u2014 simple, satisfying, and nostalgic.",
+      "ItemName": "Big Breakfast",
+      "MenuItemID": 12,
+      "Price": 17.0
+    },
+    {
+      "Category": "Lunch",
+      "ImageFile": "parmi.jpg",
+      "ItemDescription": "Gooey melted cheese and smoky ham pressed between crispy bread.\n\n",
+      "ItemName": "Chicken Parmigiana",
+      "MenuItemID": 13,
+      "Price": 9.5
+    },
+    {
+      "Category": "Breakfast",
+      "ImageFile": "avocadotoast.png",
+      "ItemDescription": "Perfectly poached eggs on rustic toast \u2014 simple elegance with a runny yolk.\n\n",
+      "ItemName": "Avocado Toast with Egg",
+      "MenuItemID": 14,
+      "Price": 10.0
+    },
+    {
+      "Category": "Breakfast",
+      "ImageFile": "beansontoast.jpg",
+      "ItemDescription": "Crispy crumbed chicken topped with napoli sauce and melted cheese \u2014 pub classic, caf\u00e9 style.",
+      "ItemName": "Baked Beans on Toast",
+      "MenuItemID": 15,
+      "Price": 7.8
+    },
+    {
+      "Category": "Drink",
+      "ImageFile": "hotcooc.webp",
+      "ItemDescription": "Warm, rich, and chocolatey comfort \u2014 a hug in a mug.",
+      "ItemName": "Hot Chocolate",
+      "MenuItemID": 16,
+      "Price": 6.9
+    }
+  ]
+}

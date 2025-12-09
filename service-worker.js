@@ -1,6 +1,4 @@
-// 🔥 CHANGE THIS VERSION NUMBER EVERY TIME YOU UPDATE YOUR CODE
-// Example: "v1.0.0", "v1.0.1", "v1.1.0", "v2.0.0"
-const VERSION = "v1.2.7";  // ⬅️ INCREMENT THIS WHEN YOU MAKE CHANGES!
+const VERSION = "v1.3";  // ⬅️ INCREMENT THIS WHEN YOU MAKE CHANGES!
 
 const CACHE_NAME = `es-cafe-${VERSION}`;
 
@@ -20,7 +18,23 @@ const STATIC_ASSETS = [
   "/static/images/logo.png",
   "/static/images/hero.jpg",
   "/static/images/menu-banner.jpg",
-  "/static/images/eggs.jpg"
+  "/static/images/eggs.jpg",
+  "/static/menu-offline.json",
+  "/static/images/Flatewhite.jpg",
+  "/static/images/Latte(1).jpg",
+  "/static/images/icedlate.jpg",
+  "/static/images/mocha.jpg",
+  "/static/images/San_Chai_Latte-min.jpg",
+  "/static/images/Ham-and-Cheese-Croissant-featured.jpg",
+  "/static/images/bananabread.jpg",
+  "/static/images/Easy-Blueberry-Muffin-Recipe-1-1200.jpg",
+  "/static/images/hamandcheesetoastite.jpeg",
+  "/static/images/panckatestack.jpg",
+  "/static/images/bigbreakfast.jpg",
+  "/static/images/parmi.jpg",
+  "/static/images/avocadotoast.png",
+  "/static/images/beansontoast.jpg",
+  "/static/images/hotcooc.webp"
 ];
 
 // Install event: pre-cache all static assets

@@ -170,11 +170,20 @@ fetch("http://127.0.0.1:5050/menu")
       }
     });
   })
-  .catch(err => {
-    console.error("Error loading menu:", err);
-    if (breakfastContainer) {
-      breakfastContainer.innerHTML = "<p>Unable to load menu items.</p>";
-    }
+ .catch(err => {
+  console.warn("API failed — loading offline menu instead:", err);
+
+  fetch("../static/menu-offline.json")
+    .then(res => res.json())
+    .then(data => {
+      // Reuse the same rendering code used for the online menu
+      const items = data.menu || data;
+      items.forEach(renderMenuItem);
+    })
+    .catch(() => {
+      breakfastContainer.innerHTML =
+        "<p>Unable to load menu items offline.</p>";
+    });
   });
 
 // Initialize cart badge on page load
