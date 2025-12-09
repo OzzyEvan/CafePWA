@@ -127,6 +127,30 @@
       "ItemName": "Hot Chocolate",
       "MenuItemID": 16,
       "Price": 6.9
+    },
+    {
+      "Category": "Special",
+      "ImageFile": "breakfastspecial.png",
+      "ItemDescription": "Daily Breakfast Special (Ends 10:00)",
+      "ItemName": "Breakfast Special",
+      "MenuItemID": 17,
+      "Price": 20.0
+    },
+    {
+      "Category": "Special",
+      "ImageFile": "lunchcombo.jpg",
+      "ItemDescription": "Daily lunch combo (Starts from 11:00)",
+      "ItemName": "Lunch Combo",
+      "MenuItemID": 18,
+      "Price": 24.0
+    },
+    {
+      "Category": "Specials",
+      "ImageFile": "drinks.jpg",
+      "ItemDescription": "A new drink every day",
+      "ItemName": "Drink of the Day",
+      "MenuItemID": 19,
+      "Price": 10.0
     }
   ]
 }
