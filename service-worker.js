@@ -1,4 +1,4 @@
-const VERSION = "v1.5.3";  // ⬅️ INCREMENT THIS WHEN YOU MAKE CHANGES!
+const VERSION = "v1.5.4";  // ⬅️ INCREMENT THIS WHEN YOU MAKE CHANGES!
 
 const CACHE_NAME = `es-cafe-${VERSION}`;
 
@@ -34,7 +34,10 @@ const STATIC_ASSETS = [
   "/static/images/parmi.jpg",
   "/static/images/avocadotoast.png",
   "/static/images/beansontoast.jpg",
-  "/static/images/hotcooc.webp"
+  "/static/images/hotcooc.webp",
+  "static/images/aboutus.jpg",
+  "static/images/images.jpg",
+  "static/images/Contact-us_topbanner_cropped.jpg"
 ];
 
 // Install event: pre-cache all static assets
