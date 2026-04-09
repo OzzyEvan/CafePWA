@@ -105,3 +105,7 @@ def create_order():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5050)
+
+@app.route('/test-error')
+def test_error():
+    raise Exception("test")
