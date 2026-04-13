@@ -89,30 +89,72 @@ function renderMenuItem(item) {
 
   const card = document.createElement("article");
   card.className = "menu-item";
-  card.innerHTML = `
-    <div class="menu-thumb">
-      <img src="/static/images/${item.ImageFile}" alt="${item.ItemName}">
-    </div>
-    <div class="menu-info">
-      <h3>${item.ItemName}</h3>
-      <p class="desc">${item.ItemDescription}</p>
-      <div class="menu-actions">
-        <span class="price">$${Number(item.Price).toFixed(2)}</span>
-        <div class="qty-controls">
-          <button class="qty-btn minus-btn" type="button">−</button>
-          <input type="number" class="qty-input" value="1" min="1" max="99">
-          <button class="qty-btn plus-btn" type="button">+</button>
-        </div>
-        <button class="add-btn">Add</button>
-      </div>
-    </div>
-  `;
 
-  // Get elements from this card
-  const addButton = card.querySelector(".add-btn");
-  const qtyInput = card.querySelector(".qty-input");
-  const minusBtn = card.querySelector(".minus-btn");
-  const plusBtn = card.querySelector(".plus-btn");
+  // Thumb
+  const thumb = document.createElement("div");
+  thumb.className = "menu-thumb";
+  const img = document.createElement("img");
+  img.src = `/static/images/${item.ImageFile}`;
+  img.alt = item.ItemName;
+  thumb.appendChild(img);
+
+  // Info
+  const info = document.createElement("div");
+  info.className = "menu-info";
+
+  const h3 = document.createElement("h3");
+  h3.textContent = item.ItemName;
+
+  const desc = document.createElement("p");
+  desc.className = "desc";
+  desc.textContent = item.ItemDescription;
+
+  // Actions
+  const actions = document.createElement("div");
+  actions.className = "menu-actions";
+
+  const price = document.createElement("span");
+  price.className = "price";
+  price.textContent = `$${Number(item.Price).toFixed(2)}`;
+
+  const qtyControls = document.createElement("div");
+  qtyControls.className = "qty-controls";
+
+  const minusBtn = document.createElement("button");
+  minusBtn.className = "qty-btn minus-btn";
+  minusBtn.type = "button";
+  minusBtn.textContent = "−";
+
+  const qtyInput = document.createElement("input");
+  qtyInput.type = "number";
+  qtyInput.className = "qty-input";
+  qtyInput.value = "1";
+  qtyInput.min = "1";
+  qtyInput.max = "99";
+
+  const plusBtn = document.createElement("button");
+  plusBtn.className = "qty-btn plus-btn";
+  plusBtn.type = "button";
+  plusBtn.textContent = "+";
+
+  qtyControls.appendChild(minusBtn);
+  qtyControls.appendChild(qtyInput);
+  qtyControls.appendChild(plusBtn);
+
+  const addButton = document.createElement("button");
+  addButton.className = "add-btn";
+  addButton.textContent = "Add";
+
+  actions.appendChild(price);
+  actions.appendChild(qtyControls);
+  actions.appendChild(addButton);
+
+  info.appendChild(h3);
+  info.appendChild(desc);
+  info.appendChild(actions);
+
+  card.appendChild(thumb);
+  card.appendChild(info);
 
   // Quantity controls
   minusBtn.addEventListener("click", () => {

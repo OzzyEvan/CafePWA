@@ -6,6 +6,9 @@ import os       # Helps build file paths that work on all systems
 app = Flask(__name__)
 CORS(app)  # allow requests from your local front-end
 
+API_KEY = "esCafe_7f3kQpL92mNvRx8wZdT1aY4bJhUoGcSi"
+
+
 # Opens a connection to orders.db inside the backend folder.
 def get_db_connection():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # backend folder
@@ -30,16 +33,18 @@ def feedback():
     # (Objects/data structures): 'message' is data app works with
     return jsonify({"response": f"Thanks! You said: {message}"}), 201
 
-# Test route to read customers from the database
 @app.route('/customers')
 def get_customers():
-    conn = get_db_connection()   # open database
+    key = request.headers.get('X-API-Key')
+    if key != API_KEY:
+        return jsonify({"error": "Unauthorised"}), 403
+
+    conn = get_db_connection()
     rows = conn.execute(
         'SELECT CustomerID, CustomerName, Email FROM Customers'
     ).fetchall()
     conn.close()
-
-    return jsonify([dict(row) for row in rows])  # convert rows to JSON
+    return jsonify([dict(row) for row in rows])
 
 # GET route: return all menu items
 @app.route('/menu', methods=['GET'])
@@ -63,7 +68,6 @@ def create_order():
     customer_email = data.get('customerEmail')
     pickup_time    = data.get('pickupTime')
     items          = data.get('items', [])
-
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -102,10 +106,6 @@ def create_order():
     return jsonify({
         "message": f"✅ Order received! Your order number is {order_id}."
     })
-
+    
 if __name__ == '__main__':
-    app.run(debug=True, port=5050)
-
-@app.route('/test-error')
-def test_error():
-    raise Exception("test")
+    app.run(debug=False, port=5050)
